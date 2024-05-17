@@ -1,8 +1,10 @@
-import openai 
 import streamlit as st
 import pandas as pd 
 from PyPDF2 import PdfReader
 import toml
+from openai import OpenAI
+
+client = OpenAI()
 
 secrets = toml.load(".streamlit/secrets.toml") 
 
@@ -60,7 +62,7 @@ def generate_chatbot():
             if uploaded_file_content:
                 st.session_state["messages"].append({"role": "user", "content": uploaded_file_content})
 
-            stream = openai.chat.completions.create(
+            stream = client.chat.completions.create(
                 model=st.session_state["openai_model"],
                 messages=[
                     {"role": m["role"], "content": m["content"]}
