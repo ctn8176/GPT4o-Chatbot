@@ -2,13 +2,10 @@ import streamlit as st
 import requests
 from bs4 import BeautifulSoup
 import openai
-#import toml
-import os
+import toml
 
-#secrets = toml.load(".streamlit/secrets.toml")
-#api_key = st.secrets["OPENAI_API_KEY"]
-
-os.environ['OPENAI_API_KEY'] = st.secrets['OPENAI_API_KEY']
+secrets = toml.load(".streamlit/secrets.toml")
+api_key = st.secrets["OPENAI_API_KEY"]
 
 def generate_email():
     st.title("Personalized Email Generator (GPT-4o)")
