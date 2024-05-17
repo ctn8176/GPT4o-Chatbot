@@ -10,7 +10,6 @@ secrets = toml.load(".streamlit/secrets.toml")
 api_key = st.secrets["OPENAI_API_KEY"]
 
 # Setting up the OpenAI API client
-openai.api_key = api_key
 
 def generate_chatbot():
     st.title("Multimodal Chatbot (GPT-4o)")
@@ -71,4 +70,3 @@ def generate_chatbot():
             )
             response = st.write_stream(stream)
         st.session_state["messages"].append({"role": "assistant", "content": response})
-        

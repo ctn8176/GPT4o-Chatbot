@@ -1,7 +1,9 @@
 import streamlit as st
 import requests
 from bs4 import BeautifulSoup
-import openai 
+from openai import OpenAI
+
+client = OpenAI(api_key=api_key) 
 import toml
 
 secrets = toml.load(".streamlit/secrets.toml")
@@ -10,7 +12,6 @@ secrets = toml.load(".streamlit/secrets.toml")
 api_key = st.secrets["OPENAI_API_KEY"]
 
 # Setting up the OpenAI API client
-openai.api_key = api_key
 
 def generate_email():
     st.title("Personalized Email Generator (GPT-4o)")
@@ -32,14 +33,12 @@ def generate_email():
 
                 # Generate personalized email using GPT-4o
                 with st.spinner("Generating Email..."):
-                    completion = openai.ChatCompletion.create(
-                        model="gpt-4o",
-                        messages=[
-                            {"role": "system", "content": f"You are a helpful sales assistant writing to {company_data}. Write a personalized email using the {company_data} to sell a product."},
-                            {"role": "user", "content": "Hello!"}
-                        ]
-                    )
-                email_content = completion.choices[0].message['content']  
+                    completion = client.chat.completions.create(model="gpt-4o",
+                    messages=[
+                        {"role": "system", "content": f"You are a helpful sales assistant writing to {company_data}. Write a personalized email using the {company_data} to sell a product."},
+                        {"role": "user", "content": "Hello!"}
+                    ])
+                email_content = completion.choices[0].message.content  
                 st.subheader("Generated Email:")
                 st.write(email_content)
             except requests.exceptions.RequestException as e:  # Added error handling
