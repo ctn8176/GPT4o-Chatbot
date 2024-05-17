@@ -7,11 +7,7 @@ from openai import OpenAI
 client = OpenAI()
 
 secrets = toml.load(".streamlit/secrets.toml") 
-
-# Accessing the OpenAI API key from Streamlit secrets
 api_key = st.secrets["OPENAI_API_KEY"]
-
-# Setting up the OpenAI API client
 
 def generate_chatbot():
     st.title("Multimodal Chatbot (GPT-4o)")

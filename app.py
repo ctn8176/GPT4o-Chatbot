@@ -1,6 +1,11 @@
 import streamlit as st
 from emailGen import generate_email
 from chatbot import generate_chatbot
+import toml
+
+secrets = toml.load(".streamlit/secrets.toml")
+api_key = st.secrets["OPENAI_API_KEY"]
+
 
 def main():
     st.set_page_config(page_title="Chatbot (GPT-4o)", page_icon=":rocket:")
