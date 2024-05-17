@@ -2,8 +2,6 @@ import streamlit as st
 import requests
 from bs4 import BeautifulSoup
 from openai import OpenAI
-
-client = OpenAI(api_key=api_key) 
 import toml
 
 secrets = toml.load(".streamlit/secrets.toml")
