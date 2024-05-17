@@ -42,5 +42,5 @@ def generate_email():
         else:
             st.warning("Please enter a website link.")
 
-
-generate_email()
+if __name__ == '__main__':
+    generate_email()
