@@ -41,3 +41,6 @@ def generate_email():
                 st.error(f"An error occurred: {e}")
         else:
             st.warning("Please enter a website link.")
+
+
+generate_email()

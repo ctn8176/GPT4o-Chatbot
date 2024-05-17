@@ -67,3 +67,5 @@ def generate_chatbot():
             )
             response = st.write_stream(stream)
         st.session_state["messages"].append({"role": "assistant", "content": response})
+        
+generate_chatbot()
