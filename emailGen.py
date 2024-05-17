@@ -1,7 +1,7 @@
 import streamlit as st
 import requests
 from bs4 import BeautifulSoup
-from openai import OpenAI
+import openai
 import toml
 
 secrets = toml.load(".streamlit/secrets.toml")
@@ -31,7 +31,7 @@ def generate_email():
 
                 # Generate personalized email using GPT-4o
                 with st.spinner("Generating Email..."):
-                    completion = client.chat.completions.create(model="gpt-4o",
+                    completion = openai.chat.completions.create(model="gpt-4o",
                     messages=[
                         {"role": "system", "content": f"You are a helpful sales assistant writing to {company_data}. Write a personalized email using the {company_data} to sell a product."},
                         {"role": "user", "content": "Hello!"}
