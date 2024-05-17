@@ -1,13 +1,14 @@
 import streamlit as st
 import pandas as pd 
 from PyPDF2 import PdfReader
-import toml
-from openai import OpenAI
+import openai
+import os
 
-client = OpenAI()
 
-secrets = toml.load(".streamlit/secrets.toml") 
-api_key = st.secrets["OPENAI_API_KEY"]
+#secrets = toml.load(".streamlit/secrets.toml") 
+#api_key = st.secrets["OPENAI_API_KEY"]
+
+os.environ['OPENAI_API_KEY'] = st.secrets['OPENAI_API_KEY']
 
 def generate_chatbot():
     st.title("Multimodal Chatbot (GPT-4o)")
@@ -58,7 +59,7 @@ def generate_chatbot():
             if uploaded_file_content:
                 st.session_state["messages"].append({"role": "user", "content": uploaded_file_content})
 
-            stream = client.chat.completions.create(
+            stream = openai.chat.completions.create(
                 model=st.session_state["openai_model"],
                 messages=[
                     {"role": m["role"], "content": m["content"]}
