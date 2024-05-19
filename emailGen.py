@@ -8,7 +8,7 @@ secrets = toml.load(".streamlit/secrets.toml")
 api_key = st.secrets["OPENAI_API_KEY"]
 
 company_info = """
-* Coast is a Visa fleet fuel and gas card plus expense management solution that helps fleets control and track employee spending on fuel and other expenses
+Coast is a Visa fleet fuel and gas card plus expense management solution that helps fleets control and track employee spending on fuel and other expenses
 * Our mission is to help businesses save time and money, so business owners can focus on what matters
 * Fleet cards and spend management are a tool to help your business do that. Our easy-to-use software lets you set rules that work for your business and track fleet spending so you don’t miss a thing
 * Get visibility on risky transactions so you can set rules and stop abuse and fraud before it can impact your business
@@ -16,12 +16,20 @@ company_info = """
 """
 
 def generate_email():
-    st.title("Personalized Email Generator (GPT-4o)")
-    st.markdown("Enter a link to web scrape and generate a personalized email powered by OpenAI's newly released model (GPT-4o). Happy emailing! 👩‍💻")
-
-    # Input field for website link
+    st.title("Coast - Personalized Outbound Email Generator 👩‍💻🚀")
+    # Instructions and form in the sidebar
+    st.sidebar.markdown("""
+                Enter a link to web scrape and generate a personalized email powered by OpenAI's newly released model (GPT-4o). 
+                1. 🔎 Enter website to webscrape
+                2. 🕵🏻‍♂️ For each result scrape that page → Run GPT4o to analyze the page in detail
+                3. 🦾 Curated prompt engineering to evaluate Coast value proposition
+                4. ✅ Take all of the above and craft personalized outbound email
+                """)
+    
+    #st.markdown("Upload a link to webscrape and generate a personalized outbound email. Happy emailing!👩‍💻")
+    
     with st.form("website_form"):
-        website_link = st.text_input("Enter the website link:")
+        website_link = st.text_input("Enter the website link:", "https://www.yellowpages.com/new-york-ny/plumbers")
         submitted = st.form_submit_button("Generate Email")
 
     # Handle form submission
@@ -34,7 +42,14 @@ def generate_email():
                 response.raise_for_status()  
                 soup = BeautifulSoup(response.text, "html.parser")
                 prospect = " ".join([p.text for p in soup.find_all("p")])
-
+                
+                st.subheader("Web Scrape Results:")
+                st.write(prospect)
+                
+                st.subheader("Coast value proposition:")
+                st.write(company_info)
+                
+                
                 # Generate personalized email using GPT-4o
                 with st.spinner("Generating Email..."):
                     completion = openai.chat.completions.create(model="gpt-4o",
@@ -47,6 +62,7 @@ def generate_email():
                         {"role": "user", "content": "Hello!"}
                     ])
                 email_content = completion.choices[0].message.content  
+                st.divider()
                 st.subheader("Generated Email:")
                 st.write(email_content)
             except requests.exceptions.RequestException as e:  # Added error handling
@@ -58,3 +74,4 @@ def generate_email():
 
 if __name__ == '__main__':
     generate_email()
+
