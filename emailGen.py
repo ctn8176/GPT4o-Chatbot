@@ -58,7 +58,7 @@ def generate_email():
                          "content": 
                              f"""You work for {company_info}. You are an SDR and you are to write a personalized sales outbound email to {prospect} using the {prospect} information that the user uploaded.
                              Be sure to use value selling: A sales methodology that focuses on how your product or service will provide value to the customer instead of focusing on price or solution.
-                             Keep the email short - under 1000 characters"""},
+                             Keep the email short - under 1000 characters but at least 500 characters"""},
                         {"role": "user", "content": "Hello!"}
                     ])
                 email_content = completion.choices[0].message.content  
