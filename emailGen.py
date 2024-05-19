@@ -20,10 +20,10 @@ def generate_email():
     # Instructions and form in the sidebar
     st.sidebar.markdown("""
                 Enter a link to web scrape and generate a personalized email powered by OpenAI's newly released model (GPT-4o). 
-                1. 🔎 Enter website to webscrape
+                1. 🔎 Enter website to web scrape
                 2. 🕵🏻‍♂️ For each result scrape that page → Run GPT4o to analyze the page in detail
-                3. 🦾 Curated prompt engineering to evaluate Coast value proposition
-                4. ✅ Take all of the above and craft personalized outbound email
+                3. 🦾 Curated prompt engineering to incorporate Coast value proposition
+                4. ✅ Take all of the above and craft a personalized outbound email
                 """)
     
     #st.markdown("Upload a link to webscrape and generate a personalized outbound email. Happy emailing!👩‍💻")
